@@ -1,0 +1,169 @@
+{
+  "cuestionario_id": "datos_generales",
+  "nombre": "Ficha de Datos Generales",
+  "fuente": "Ministerio de la Protección Social / Pontificia Universidad Javeriana",
+  "tiempo_estimado_min": null,
+  "campos_encabezado": [
+    { "id": "fecha_aplicacion", "texto": "Fecha de aplicación", "tipo": "fecha", "formato": "dd/mm/aaaa" },
+    { "id": "numero_identificacion", "texto": "Número de identificación del respondiente (ID)", "tipo": "texto" }
+  ],
+  "preguntas": [
+    {
+      "id": 1,
+      "texto": "Nombre completo",
+      "tipo": "texto"
+    },
+    {
+      "id": 2,
+      "texto": "Sexo",
+      "tipo": "seleccion_unica",
+      "opciones": ["Masculino", "Femenino"]
+    },
+    {
+      "id": 3,
+      "texto": "Año de nacimiento",
+      "tipo": "numero"
+    },
+    {
+      "id": 4,
+      "texto": "Estado civil",
+      "tipo": "seleccion_unica",
+      "opciones": [
+        "Soltero (a)",
+        "Casado (a)",
+        "Unión libre",
+        "Separado (a)",
+        "Divorciado (a)",
+        "Viudo (a)",
+        "Sacerdote / Monja"
+      ]
+    },
+    {
+      "id": 5,
+      "texto": "Último nivel de estudios que alcanzó",
+      "tipo": "seleccion_unica",
+      "opciones": [
+        "Ninguno",
+        "Primaria incompleta",
+        "Primaria completa",
+        "Bachillerato incompleto",
+        "Bachillerato completo",
+        "Técnico / tecnológico incompleto",
+        "Técnico / tecnológico completo",
+        "Profesional incompleto",
+        "Profesional completo",
+        "Carrera militar / policía",
+        "Post-grado incompleto",
+        "Post-grado completo"
+      ]
+    },
+    {
+      "id": 6,
+      "texto": "¿Cuál es su ocupación o profesión?",
+      "tipo": "texto"
+    },
+    {
+      "id": 7,
+      "texto": "Lugar de residencia actual",
+      "tipo": "compuesto",
+      "subcampos": [
+        { "id": "7a", "texto": "Ciudad / municipio", "tipo": "texto" },
+        { "id": "7b", "texto": "Departamento", "tipo": "texto" }
+      ]
+    },
+    {
+      "id": 8,
+      "texto": "Estrato de los servicios públicos de su vivienda",
+      "tipo": "seleccion_unica",
+      "opciones": ["1", "2", "3", "4", "5", "6", "Finca", "No sé"]
+    },
+    {
+      "id": 9,
+      "texto": "Tipo de vivienda",
+      "tipo": "seleccion_unica",
+      "opciones": ["Propia", "En arriendo", "Familiar"]
+    },
+    {
+      "id": 10,
+      "texto": "Número de personas que dependen económicamente de usted (aunque vivan en otro lugar)",
+      "tipo": "numero"
+    },
+    {
+      "id": 11,
+      "texto": "Lugar donde trabaja actualmente",
+      "tipo": "compuesto",
+      "subcampos": [
+        { "id": "11a", "texto": "Ciudad / municipio", "tipo": "texto" },
+        { "id": "11b", "texto": "Departamento", "tipo": "texto" }
+      ]
+    },
+    {
+      "id": 12,
+      "texto": "¿Hace cuántos años que trabaja en esta empresa?",
+      "tipo": "compuesto_condicional",
+      "subcampos": [
+        { "id": "12a", "texto": "Lleva menos de un año", "tipo": "booleano" },
+        { "id": "12b", "texto": "Si lleva más de un año, anote cuántos", "tipo": "numero" }
+      ]
+    },
+    {
+      "id": 13,
+      "texto": "¿Cuál es el nombre del cargo que ocupa en la empresa?",
+      "tipo": "texto"
+    },
+    {
+      "id": 14,
+      "texto": "Tipo de cargo que más se parece al que usted desempeña",
+      "tipo": "seleccion_unica",
+      "opciones": [
+        "Jefatura - tiene personal a cargo",
+        "Profesional, analista, técnico, tecnólogo",
+        "Auxiliar, asistente administrativo, asistente técnico",
+        "Operario, operador, ayudante, servicios generales"
+      ]
+    },
+    {
+      "id": 15,
+      "texto": "¿Hace cuántos años que desempeña el cargo u oficio actual en esta empresa?",
+      "tipo": "compuesto_condicional",
+      "subcampos": [
+        { "id": "15a", "texto": "Lleva menos de un año", "tipo": "booleano" },
+        { "id": "15b", "texto": "Si lleva más de un año, anote cuántos", "tipo": "numero" }
+      ]
+    },
+    {
+      "id": 16,
+      "texto": "Nombre del departamento, área o sección de la empresa en el que trabaja",
+      "tipo": "texto"
+    },
+    {
+      "id": 17,
+      "texto": "Tipo de contrato que tiene actualmente",
+      "tipo": "seleccion_unica",
+      "opciones": [
+        "Temporal de menos de 1 año",
+        "Temporal de 1 año o más",
+        "Término indefinido",
+        "Cooperado (cooperativa)",
+        "Prestación de servicios",
+        "No sé"
+      ]
+    },
+    {
+      "id": 18,
+      "texto": "¿Cuántas horas diarias de trabajo están establecidas habitualmente por la empresa para su cargo?",
+      "tipo": "numero",
+      "unidad": "horas de trabajo al día"
+    },
+    {
+      "id": 19,
+      "texto": "Tipo de salario que recibe",
+      "tipo": "seleccion_unica",
+      "opciones": [
+        "Fijo (diario, semanal, quincenal o mensual)",
+        "Una parte fija y otra variable",
+        "Todo variable (a destajo, por producción, por comisión)"
+      ]
+    }
+  ]
+}

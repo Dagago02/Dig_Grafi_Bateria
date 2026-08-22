@@ -1,0 +1,58 @@
+{
+  "cuestionario_id": "extralaboral",
+  "nombre": "Cuestionario de Factores Psicosociales Extralaborales",
+  "fuente": "Ministerio de la Protección Social / Pontificia Universidad Javeriana",
+  "instrucciones": "Este cuestionario busca conocer su opinión sobre algunos aspectos de su vida familiar y personal. Responda todas las preguntas marcando una sola respuesta con una X.",
+  "tiempo_estimado_min": 10,
+  "escala_respuesta": [
+    { "valor": 4, "etiqueta": "Siempre" },
+    { "valor": 3, "etiqueta": "Casi siempre" },
+    { "valor": 2, "etiqueta": "Algunas veces" },
+    { "valor": 1, "etiqueta": "Casi nunca" },
+    { "valor": 0, "etiqueta": "Nunca" }
+  ],
+  "nota_escala": "Los valores numéricos (0-4) son un placeholder de orden; el sentido de la calificación (directo/inverso por pregunta) y el mapeo a dominios/dimensiones deben confirmarse contra el manual oficial antes de implementar el motor de cálculo.",
+  "secciones": [
+    {
+      "nombre": "Condiciones de la zona donde vive",
+      "preguntas": [
+        { "id": 1, "texto": "Es fácil trasportarme entre mi casa y el trabajo" },
+        { "id": 2, "texto": "Tengo que tomar varios medios de transporte para llegar a mi lugar de trabajo" },
+        { "id": 3, "texto": "Paso mucho tiempo viajando de ida y regreso al trabajo" },
+        { "id": 4, "texto": "Me trasporto cómodamente entre mi casa y el trabajo" },
+        { "id": 5, "texto": "La zona donde vivo es segura" },
+        { "id": 6, "texto": "En la zona donde vivo se presentan hurtos y mucha delincuencia" },
+        { "id": 7, "texto": "Desde donde vivo me es fácil llegar al centro médico donde me atienden" },
+        { "id": 8, "texto": "Cerca a mi vivienda las vías están en buenas condiciones" },
+        { "id": 9, "texto": "Cerca a mi vivienda encuentro fácilmente transporte" },
+        { "id": 10, "texto": "Las condiciones de mi vivienda son buenas" },
+        { "id": 11, "texto": "En mi vivienda hay servicios de agua y luz" },
+        { "id": 12, "texto": "Las condiciones de mi vivienda me permiten descansar cuando lo requiero" },
+        { "id": 13, "texto": "Las condiciones de mi vivienda me permiten sentirme cómodo" }
+      ]
+    },
+    {
+      "nombre": "Vida fuera del trabajo",
+      "preguntas": [
+        { "id": 14, "texto": "Me queda tiempo para actividades de recreación" },
+        { "id": 15, "texto": "Fuera del trabajo tengo tiempo suficiente para descansar" },
+        { "id": 16, "texto": "Tengo tiempo para atender mis asuntos personales y del hogar" },
+        { "id": 17, "texto": "Tengo tiempo para compartir con mi familia o amigos" },
+        { "id": 18, "texto": "Tengo buena comunicación con las personas cercanas" },
+        { "id": 19, "texto": "Las relaciones con mis amigos son buenas" },
+        { "id": 20, "texto": "Converso con personas cercanas sobre diferentes temas" },
+        { "id": 21, "texto": "Mis amigos están dispuestos a escucharme cuando tengo problemas" },
+        { "id": 22, "texto": "Cuento con el apoyo de mi familia cuando tengo problemas" },
+        { "id": 23, "texto": "Puedo hablar con personas cercanas sobre las cosas que me pasan" },
+        { "id": 24, "texto": "Mis problemas personales o familiares afectan mi trabajo" },
+        { "id": 25, "texto": "La relación con mi familia cercana es cordial" },
+        { "id": 26, "texto": "Mis problemas personales o familiares me quitan la energía que necesito para trabajar" },
+        { "id": 27, "texto": "Los problemas con mis familiares los resolvemos de manera amistosa" },
+        { "id": 28, "texto": "Mis problemas personales o familiares afectan mis relaciones en el trabajo" },
+        { "id": 29, "texto": "El dinero que ganamos en el hogar alcanza para cubrir los gastos básicos" },
+        { "id": 30, "texto": "Tengo otros compromisos económicos que afectan mucho el presupuesto familiar" },
+        { "id": 31, "texto": "En mi hogar tenemos deudas difíciles de pagar" }
+      ]
+    }
+  ]
+}

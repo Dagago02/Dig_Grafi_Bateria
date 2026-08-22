@@ -1,0 +1,230 @@
+{
+  "cuestionario_id": "intralaboral_forma_a",
+  "nombre": "Cuestionario de Factores de Riesgo Psicosocial Intralaboral - Forma A",
+  "fuente": "Ministerio de la Protección Social / Pontificia Universidad Javeriana",
+  "instrucciones": "Este cuestionario busca conocer su opinión sobre algunos aspectos de su trabajo. Responda todas las preguntas marcando una sola respuesta con una X.",
+  "tiempo_estimado_min": 60,
+  "poblacion_objetivo": "Jefatura, profesionales/analistas/técnicos/tecnólogos (ver Ficha de Datos Generales, pregunta 14)",
+  "escala_respuesta": [
+    { "valor": 4, "etiqueta": "Siempre" },
+    { "valor": 3, "etiqueta": "Casi siempre" },
+    { "valor": 2, "etiqueta": "Algunas veces" },
+    { "valor": 1, "etiqueta": "Casi nunca" },
+    { "valor": 0, "etiqueta": "Nunca" }
+  ],
+  "nota_escala": "Los valores numéricos (0-4) son un placeholder de orden; el sentido de la calificación (directo/inverso por pregunta) y el mapeo a dominios/dimensiones deben confirmarse contra el manual oficial antes de implementar el motor de cálculo.",
+  "secciones": [
+    {
+      "nombre": "Condiciones ambientales del sitio de trabajo",
+      "preguntas": [
+        { "id": 1, "texto": "El ruido en el lugar donde trabajo es molesto" },
+        { "id": 2, "texto": "En el lugar donde trabajo hace mucho frío" },
+        { "id": 3, "texto": "En el lugar donde trabajo hace mucho calor" },
+        { "id": 4, "texto": "El aire en el lugar donde trabajo es fresco y agradable" },
+        { "id": 5, "texto": "La luz del sitio donde trabajo es agradable" },
+        { "id": 6, "texto": "El espacio donde trabajo es cómodo" },
+        { "id": 7, "texto": "En mi trabajo me preocupa estar expuesto a sustancias químicas que afecten mi salud" },
+        { "id": 8, "texto": "Mi trabajo me exige hacer mucho esfuerzo físico" },
+        { "id": 9, "texto": "Los equipos o herramientas con los que trabajo son cómodos" },
+        { "id": 10, "texto": "En mi trabajo me preocupa estar expuesto a microbios, animales o plantas que afecten mi salud" },
+        { "id": 11, "texto": "Me preocupa accidentarme en mi trabajo" },
+        { "id": 12, "texto": "El lugar donde trabajo es limpio y ordenado" }
+      ]
+    },
+    {
+      "nombre": "Cantidad de trabajo a cargo",
+      "preguntas": [
+        { "id": 13, "texto": "Por la cantidad de trabajo que tengo debo quedarme tiempo adicional" },
+        { "id": 14, "texto": "Me alcanza el tiempo de trabajo para tener al día mis deberes" },
+        { "id": 15, "texto": "Por la cantidad de trabajo que tengo debo trabajar sin parar" }
+      ]
+    },
+    {
+      "nombre": "Esfuerzo mental",
+      "preguntas": [
+        { "id": 16, "texto": "Mi trabajo me exige hacer mucho esfuerzo mental" },
+        { "id": 17, "texto": "Mi trabajo me exige estar muy concentrado" },
+        { "id": 18, "texto": "Mi trabajo me exige memorizar mucha información" },
+        { "id": 19, "texto": "En mi trabajo tengo que tomar decisiones difíciles muy rápido" },
+        { "id": 20, "texto": "Mi trabajo me exige atender a muchos asuntos al mismo tiempo" },
+        { "id": 21, "texto": "Mi trabajo requiere que me fije en pequeños detalles" }
+      ]
+    },
+    {
+      "nombre": "Responsabilidades y actividades del trabajo",
+      "preguntas": [
+        { "id": 22, "texto": "En mi trabajo respondo por cosas de mucho valor" },
+        { "id": 23, "texto": "En mi trabajo respondo por dinero de la empresa" },
+        { "id": 24, "texto": "Como parte de mis funciones debo responder por la seguridad de otros" },
+        { "id": 25, "texto": "Respondo ante mi jefe por los resultados de toda mi área de trabajo" },
+        { "id": 26, "texto": "Mi trabajo me exige cuidar la salud de otras personas" },
+        { "id": 27, "texto": "En el trabajo me dan órdenes contradictorias" },
+        { "id": 28, "texto": "En mi trabajo me piden hacer cosas innecesarias" },
+        { "id": 29, "texto": "En mi trabajo se presentan situaciones en las que debo pasar por alto normas o procedimientos" },
+        { "id": 30, "texto": "En mi trabajo tengo que hacer cosas que se podrían hacer de una forma más práctica" }
+      ]
+    },
+    {
+      "nombre": "Jornada de trabajo",
+      "preguntas": [
+        { "id": 31, "texto": "Trabajo en horario de noche" },
+        { "id": 32, "texto": "En mi trabajo es posible tomar pausas para descansar" },
+        { "id": 33, "texto": "Mi trabajo me exige laborar en días de descanso, festivos o fines de semana" },
+        { "id": 34, "texto": "En mi trabajo puedo tomar fines de semana o días de descanso al mes" },
+        { "id": 35, "texto": "Cuando estoy en casa sigo pensando en el trabajo" },
+        { "id": 36, "texto": "Discuto con mi familia o amigos por causa de mi trabajo" },
+        { "id": 37, "texto": "Debo atender asuntos de trabajo cuando estoy en casa" },
+        { "id": 38, "texto": "Por mi trabajo el tiempo que paso con mi familia y amigos es muy poco" }
+      ]
+    },
+    {
+      "nombre": "Decisiones y control sobre el trabajo",
+      "preguntas": [
+        { "id": 39, "texto": "Mi trabajo me permite desarrollar mis habilidades" },
+        { "id": 40, "texto": "Mi trabajo me permite aplicar mis conocimientos" },
+        { "id": 41, "texto": "Mi trabajo me permite aprender nuevas cosas" },
+        { "id": 42, "texto": "Me asignan el trabajo teniendo en cuenta mis capacidades." },
+        { "id": 43, "texto": "Puedo tomar pausas cuando las necesito" },
+        { "id": 44, "texto": "Puedo decidir cuánto trabajo hago en el día" },
+        { "id": 45, "texto": "Puedo decidir la velocidad a la que trabajo" },
+        { "id": 46, "texto": "Puedo cambiar el orden de las actividades en mi trabajo" },
+        { "id": 47, "texto": "Puedo parar un momento mi trabajo para atender algún asunto personal" }
+      ]
+    },
+    {
+      "nombre": "Cambios en el trabajo",
+      "preguntas": [
+        { "id": 48, "texto": "Los cambios en mi trabajo han sido beneficiosos" },
+        { "id": 49, "texto": "Me explican claramente los cambios que ocurren en mi trabajo" },
+        { "id": 50, "texto": "Puedo dar sugerencias sobre los cambios que ocurren en mi trabajo" },
+        { "id": 51, "texto": "Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas y sugerencias" },
+        { "id": 52, "texto": "Los cambios que se presentan en mi trabajo dificultan mi labor" }
+      ]
+    },
+    {
+      "nombre": "Información sobre el trabajo",
+      "preguntas": [
+        { "id": 53, "texto": "Me informan con claridad cuáles son mis funciones" },
+        { "id": 54, "texto": "Me informan cuáles son las decisiones que puedo tomar en mi trabajo" },
+        { "id": 55, "texto": "Me explican claramente los resultados que debo lograr en mi trabajo" },
+        { "id": 56, "texto": "Me explican claramente el efecto de mi trabajo en la empresa" },
+        { "id": 57, "texto": "Me explican claramente los objetivos de mi trabajo" },
+        { "id": 58, "texto": "Me informan claramente quien me puede orientar para hacer mi trabajo" },
+        { "id": 59, "texto": "Me informan claramente con quien puedo resolver los asuntos de trabajo" }
+      ]
+    },
+    {
+      "nombre": "Formación y capacitación",
+      "preguntas": [
+        { "id": 60, "texto": "La empresa me permite asistir a capacitaciones relacionadas con mi trabajo" },
+        { "id": 61, "texto": "Recibo capacitación útil para hacer mi trabajo" },
+        { "id": 62, "texto": "Recibo capacitación que me ayuda a hacer mejor mi trabajo" }
+      ]
+    },
+    {
+      "nombre": "Relación con el jefe",
+      "preguntas": [
+        { "id": 63, "texto": "Mi jefe me da instrucciones claras" },
+        { "id": 64, "texto": "Mi jefe ayuda a organizar mejor el trabajo" },
+        { "id": 65, "texto": "Mi jefe tiene en cuenta mis puntos de vista y opiniones" },
+        { "id": 66, "texto": "Mi jefe me anima para hacer mejor mi trabajo" },
+        { "id": 67, "texto": "Mi jefe distribuye las tareas de forma que me facilita el trabajo" },
+        { "id": 68, "texto": "Mi jefe me comunica a tiempo la información relacionada con el trabajo" },
+        { "id": 69, "texto": "La orientación que me da mi jefe me ayuda a hacer mejor el trabajo" },
+        { "id": 70, "texto": "Mi jefe me ayuda a progresar en el trabajo" },
+        { "id": 71, "texto": "Mi jefe me ayuda a sentirme bien en el trabajo" },
+        { "id": 72, "texto": "Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo" },
+        { "id": 73, "texto": "Siento que puedo confiar en mi jefe" },
+        { "id": 74, "texto": "Mi jefe me escucha cuando tengo problemas de trabajo" },
+        { "id": 75, "texto": "Mi jefe me brinda su apoyo cuando lo necesito" }
+      ]
+    },
+    {
+      "nombre": "Relaciones y apoyo entre compañeros de trabajo",
+      "preguntas": [
+        { "id": 76, "texto": "Me agrada el ambiente de mi grupo de trabajo" },
+        { "id": 77, "texto": "En mi grupo de trabajo me tratan de forma respetuosa" },
+        { "id": 78, "texto": "Siento que puedo confiar en mis compañeros de trabajo" },
+        { "id": 79, "texto": "Me siento a gusto con mis compañeros de trabajo" },
+        { "id": 80, "texto": "En mi grupo de trabajo algunas personas me maltratan" },
+        { "id": 81, "texto": "Entre compañeros solucionamos los problemas de forma respetuosa" },
+        { "id": 82, "texto": "Hay integración en mi grupo de trabajo" },
+        { "id": 83, "texto": "Mi grupo de trabajo es muy unido" },
+        { "id": 84, "texto": "Las personas en mi trabajo me hacen sentir parte del grupo" },
+        { "id": 85, "texto": "Cuando tenemos que realizar trabajo de grupo los compañeros colaboran" },
+        { "id": 86, "texto": "Es fácil poner de acuerdo al grupo para hacer el trabajo" },
+        { "id": 87, "texto": "Mis compañeros de trabajo me ayudan cuando tengo dificultades" },
+        { "id": 88, "texto": "En mi trabajo las personas nos apoyamos unos a otros" },
+        { "id": 89, "texto": "Algunos compañeros de trabajo me escuchan cuando tengo problemas" }
+      ]
+    },
+    {
+      "nombre": "Información sobre el rendimiento en el trabajo",
+      "preguntas": [
+        { "id": 90, "texto": "Me informan sobre lo que hago bien en mi trabajo" },
+        { "id": 91, "texto": "Me informan sobre lo que debo mejorar en mi trabajo" },
+        { "id": 92, "texto": "La información que recibo sobre mi rendimiento en el trabajo es clara" },
+        { "id": 93, "texto": "La forma como evalúan mi trabajo en la empresa me ayuda a mejorar" },
+        { "id": 94, "texto": "Me informan a tiempo sobre lo que debo mejorar en el trabajo" }
+      ]
+    },
+    {
+      "nombre": "Satisfacción, reconocimiento y seguridad en el trabajo",
+      "preguntas": [
+        { "id": 95, "texto": "En la empresa confían en mi trabajo" },
+        { "id": 96, "texto": "En la empresa me pagan a tiempo mi salario" },
+        { "id": 97, "texto": "El pago que recibo es el que me ofreció la empresa" },
+        { "id": 98, "texto": "El pago que recibo es el que merezco por el trabajo que realizo" },
+        { "id": 99, "texto": "En mi trabajo tengo posibilidades de progresar" },
+        { "id": 100, "texto": "Las personas que hacen bien el trabajo pueden progresar en la empresa" },
+        { "id": 101, "texto": "La empresa se preocupa por el bienestar de los trabajadores" },
+        { "id": 102, "texto": "Mi trabajo en la empresa es estable" },
+        { "id": 103, "texto": "El trabajo que hago me hace sentir bien" },
+        { "id": 104, "texto": "Siento orgullo de trabajar en esta empresa" },
+        { "id": 105, "texto": "Hablo bien de la empresa con otras personas" }
+      ]
+    },
+    {
+      "nombre": "Atención a clientes y usuarios",
+      "condicional": {
+        "pregunta_filtro": "En mi trabajo debo brindar servicio a clientes o usuarios",
+        "id_filtro": "106_filtro",
+        "tipo_filtro": "si_no",
+        "aplica_si": "Si",
+        "si_no_aplica": "pasar a la sección 'Es jefe de otras personas' (o Ficha de Datos Generales si tampoco aplica)"
+      },
+      "preguntas": [
+        { "id": 106, "texto": "Atiendo clientes o usuarios muy enojados" },
+        { "id": 107, "texto": "Atiendo clientes o usuarios muy preocupados" },
+        { "id": 108, "texto": "Atiendo clientes o usuarios muy tristes" },
+        { "id": 109, "texto": "Mi trabajo me exige atender personas muy enfermas" },
+        { "id": 110, "texto": "Mi trabajo me exige atender personas muy necesitadas de ayuda" },
+        { "id": 111, "texto": "Atiendo clientes o usuarios que me maltratan" },
+        { "id": 112, "texto": "Para hacer mi trabajo debo demostrar sentimientos distintos a los míos" },
+        { "id": 113, "texto": "Mi trabajo me exige atender situaciones de violencia" },
+        { "id": 114, "texto": "Mi trabajo me exige atender situaciones muy tristes o dolorosas" }
+      ]
+    },
+    {
+      "nombre": "Relación con colaboradores a cargo (jefatura)",
+      "condicional": {
+        "pregunta_filtro": "Soy jefe de otras personas en mi trabajo",
+        "id_filtro": "115_filtro",
+        "tipo_filtro": "si_no",
+        "aplica_si": "Si",
+        "si_no_aplica": "pasar a la sección Ficha de Datos Generales (fin del cuestionario intralaboral)"
+      },
+      "preguntas": [
+        { "id": 115, "texto": "Tengo colaboradores que comunican tarde los asuntos de trabajo" },
+        { "id": 116, "texto": "Tengo colaboradores que tienen comportamientos irrespetuosos" },
+        { "id": 117, "texto": "Tengo colaboradores que dificultan la organización del trabajo" },
+        { "id": 118, "texto": "Tengo colaboradores que guardan silencio cuando les piden opiniones" },
+        { "id": 119, "texto": "Tengo colaboradores que dificultan el logro de los resultados del trabajo" },
+        { "id": 120, "texto": "Tengo colaboradores que expresan de forma irrespetuosa sus desacuerdos" },
+        { "id": 121, "texto": "Tengo colaboradores que cooperan poco cuando se necesita" },
+        { "id": 122, "texto": "Tengo colaboradores que me preocupan por su desempeño" },
+        { "id": 123, "texto": "Tengo colaboradores que ignoran las sugerencias para mejorar su trabajo" }
+      ]
+    }
+  ]
+}
