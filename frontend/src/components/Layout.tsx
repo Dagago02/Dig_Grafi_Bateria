@@ -60,8 +60,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <NavLink 
             to="/results" 
             className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
-            onClick={(e) => e.preventDefault()} // Disabled/placeholder for now
-            style={{ opacity: 0.5, cursor: 'not-allowed' }}
           >
             <BarChart3 size={20} />
             <span>Resultados</span>

@@ -375,3 +375,43 @@ body {
   border: 1px solid rgba(16, 185, 129, 0.2);
   color: var(--success);
 }
+
+/* White background card style for graphs and statistics dashboard */
+.dashboard-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  margin-bottom: 24px;
+  color: #0f172a !important; /* Dark Slate text for contrast on white background */
+}
+
+/* Make Recharts labels and titles inside dashboard-card look dark and clean */
+.dashboard-card .chart-title {
+  color: #0f172a !important;
+  font-weight: 700;
+}
+
+.dashboard-card p, .dashboard-card span, .dashboard-card label, .dashboard-card th, .dashboard-card td {
+  color: #334155 !important;
+}
+
+.dashboard-card h3, .dashboard-card h4 {
+  color: #0f172a !important;
+}
+
+.dashboard-card table {
+  border-color: #e2e8f0 !important;
+}
+
+.dashboard-card th {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+.dashboard-card td {
+  border-color: #e2e8f0 !important;
+}
+

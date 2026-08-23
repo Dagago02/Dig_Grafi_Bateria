@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Edit, Trash2, X, AlertTriangle, Search, Filter, UserCheck, FileText } from 'lucide-react';
+import { Plus, Edit, Trash2, X, AlertTriangle, Search, Filter, UserCheck, FileText, BarChart3 } from 'lucide-react';
 import api from '../services/api';
+import { ParticipantResultsModal } from '../components/ParticipantResultsModal';
 
 interface Company {
   id: number;
@@ -56,6 +57,7 @@ export const Participants: React.FC = () => {
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editingParticipant, setEditingParticipant] = useState<Participant | null>(null);
+  const [viewingParticipantId, setViewingParticipantId] = useState<number | null>(null);
 
   // Form State
   const [empresaId, setEmpresaId] = useState<number | ''>('');
@@ -409,6 +411,15 @@ export const Participants: React.FC = () => {
                         <button
                           className="btn btn-secondary"
                           style={{ padding: '6px 12px' }}
+                          title="Ver Resultados"
+                          onClick={() => setViewingParticipantId(p.id)}
+                        >
+                          <BarChart3 size={16} />
+                        </button>
+                        <button
+                          className="btn btn-secondary"
+                          style={{ padding: '6px 12px' }}
+                          title="Editar"
                           onClick={() => openEditModal(p)}
                         >
                           <Edit size={16} />
@@ -617,6 +628,13 @@ export const Participants: React.FC = () => {
             </form>
           </div>
         </div>
+      )}
+
+      {viewingParticipantId !== null && (
+        <ParticipantResultsModal 
+          participantId={viewingParticipantId} 
+          onClose={() => setViewingParticipantId(null)} 
+        />
       )}
     </div>
   );

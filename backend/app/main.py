@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import app.models
 from app.core.config import settings
-from app.api.endpoints import companies, evaluations, participants, questions, answers
+from app.api.endpoints import companies, evaluations, participants, questions, answers, results
 
 app = FastAPI(
     title="Batería de Riesgo Psicosocial API",
@@ -26,6 +26,7 @@ app.include_router(evaluations.router, prefix=f"{settings.API_V1_STR}/evaluation
 app.include_router(participants.router, prefix=f"{settings.API_V1_STR}/participants", tags=["Participants"])
 app.include_router(questions.router, prefix=f"{settings.API_V1_STR}/questions", tags=["Questions"])
 app.include_router(answers.router, prefix=f"{settings.API_V1_STR}/answers", tags=["Answers"])
+app.include_router(results.router, prefix=f"{settings.API_V1_STR}/results", tags=["Results"])
 
 # Root/Health check endpoints
 @app.get("/")
