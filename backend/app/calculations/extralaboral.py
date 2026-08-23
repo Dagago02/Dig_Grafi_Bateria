@@ -1,5 +1,6 @@
 from typing import Dict, Any
 from app.calculations.risk_levels import classify_risk
+from app.calculations.likert import likert_frequency_0_4
 
 INVERSE_ITEMS_EXTRALABORAL = {2, 3, 6, 24, 26, 28, 30, 31}
 
@@ -38,11 +39,7 @@ BAREMOS_GRUPO2 = {
 }
 
 def score_item_extralaboral(q_num: int, val_str: str) -> int:
-    map_likert = {
-        "Siempre": 4, "Casi siempre": 3, "Algunas veces": 2, "Casi nunca": 1, "Nunca": 0,
-        "4": 4, "3": 3, "2": 2, "1": 1, "0": 0
-    }
-    raw_val = map_likert.get(str(val_str).strip(), 0)
+    raw_val = likert_frequency_0_4(val_str)
     if q_num in INVERSE_ITEMS_EXTRALABORAL:
         return raw_val
     else:

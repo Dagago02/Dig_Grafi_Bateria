@@ -6,6 +6,7 @@ from app.db.session import get_db
 from app.models.answer import Answer
 from app.models.participant import Participant
 from app.schemas.answer import AnswerBatchCreate, AnswerResponse
+from app.calculations.calculator import calculate_participant_results
 
 router = APIRouter()
 
@@ -47,6 +48,11 @@ def save_answers_batch(batch_in: AnswerBatchCreate, db: Session = Depends(get_db
         participant.estado_evaluacion = batch_in.estado_evaluacion
 
     db.commit()
+
+    try:
+        calculate_participant_results(batch_in.participant_id, db)
+    except Exception:
+        pass
 
     for ans in saved_answers:
         db.refresh(ans)

@@ -53,13 +53,10 @@ def read_participant_results(participant_id: int, db: Session = Depends(get_db))
     if not participant:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Participante no encontrado.")
 
-    results = db.query(Result).filter(Result.participant_id == participant_id).all()
-    if not results:
-        # If not calculated yet, attempt calculation automatically
-        try:
-            results = calculate_participant_results(participant_id, db)
-        except Exception:
-            results = []
+    try:
+        results = calculate_participant_results(participant_id, db)
+    except Exception:
+        results = db.query(Result).filter(Result.participant_id == participant_id).all()
 
     res_objs = [ResultResponse.model_validate(r) for r in results]
 

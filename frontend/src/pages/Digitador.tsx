@@ -20,6 +20,7 @@ interface Question {
   id: number;
   texto: string;
   db_id?: number;
+  db_id?: number;
   opciones?: any[];
   tipo?: string;
 }
@@ -29,16 +30,30 @@ interface Section {
   preguntas: Question[];
 }
 
+interface ScaleOption {
+  valor: number;
+  etiqueta: string;
+}
+
 interface QuestionnaireStructure {
   cuestionario_id: string;
   nombre: string;
   instrucciones?: string;
-  escala_respuesta?: { valor: number; etiqueta: string }[];
+  escala_respuesta?: ScaleOption[];
+  escala_respuesta?: ScaleOption[];
   secciones?: Section[];
   preguntas?: Question[];
 }
 
 type QuestionnaireType = 'datos_generales' | 'intralaboral' | 'extralaboral' | 'estres';
+
+function questionDbId(q: Question): number | undefined {
+  return q.db_id ?? q.db_id;
+}
+
+function questionnaireScale(struct: QuestionnaireStructure): ScaleOption[] | undefined {
+  return struct.escala_respuesta ?? struct.escala_respuesta;
+}
 
 export const Digitador: React.FC = () => {
   const { participantId } = useParams<{ participantId: string }>();
@@ -168,7 +183,10 @@ export const Digitador: React.FC = () => {
   };
 
   const activeQuestions = getQuestionsList(currentStruct);
-  const answeredActiveCount = activeQuestions.filter((q) => q.db_id && answers[q.db_id] !== undefined && answers[q.db_id] !== '').length;
+  const answeredActiveCount = activeQuestions.filter((q) => {
+    const qid = questionDbId(q);
+    return qid !== undefined && answers[qid] !== undefined && answers[qid] !== '';
+  }).length;
   const activeProgressPercent = activeQuestions.length > 0 ? Math.round((answeredActiveCount / activeQuestions.length) * 100) : 0;
 
   return (
@@ -346,9 +364,9 @@ export const Digitador: React.FC = () => {
                     <QuestionRow
                       key={q.id}
                       question={q}
-                      scale={currentStruct.escala_respuesta}
-                      currentValue={q.db_id ? answers[q.db_id] || '' : ''}
-                      onChange={(val) => q.db_id && handleAnswerChange(q.db_id, val)}
+                      scale={questionnaireScale(currentStruct)}
+                      currentValue={questionDbId(q) ? answers[questionDbId(q)!] || '' : ''}
+                      onChange={(val) => questionDbId(q) && handleAnswerChange(questionDbId(q)!, val)}
                     />
                   ))}
                 </div>
@@ -360,9 +378,9 @@ export const Digitador: React.FC = () => {
                 <QuestionRow
                   key={q.id}
                   question={q}
-                  scale={currentStruct.escala_respuesta}
-                  currentValue={q.db_id ? answers[q.db_id] || '' : ''}
-                  onChange={(val) => q.db_id && handleAnswerChange(q.db_id, val)}
+                  scale={questionnaireScale(currentStruct)}
+                  currentValue={questionDbId(q) ? answers[questionDbId(q)!] || '' : ''}
+                  onChange={(val) => questionDbId(q) && handleAnswerChange(questionDbId(q)!, val)}
                 />
               ))}
             </div>
@@ -411,13 +429,17 @@ interface QuestionRowProps {
 }
 
 const QuestionRow: React.FC<QuestionRowProps> = ({ question, scale, currentValue, onChange }) => {
-  const optionsToRender = question.opciones
-    ? question.opciones.map((opt: any) =>
+  const hasQuestionOptions = Array.isArray(question.opciones) && question.opciones.length > 0;
+  const optionsToRender = hasQuestionOptions
+    ? question.opciones!.map((opt: any) =>
         typeof opt === 'string'
           ? { valor: opt, etiqueta: opt }
-          : { valor: opt.valor !== undefined ? String(opt.valor) : opt.etiqueta, etiqueta: opt.etiqueta }
+          : {
+              valor: String(opt.valor ?? opt.value ?? opt.etiqueta ?? opt.label ?? ''),
+              etiqueta: opt.etiqueta ?? opt.label ?? String(opt.valor ?? opt.value ?? ''),
+            }
       )
-    : scale
+    : scale && scale.length > 0
     ? scale.map((s) => ({ valor: String(s.valor), etiqueta: s.etiqueta }))
     : [];
 

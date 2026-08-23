@@ -5,6 +5,15 @@ from sqlalchemy.orm import Session
 
 from app.models.question import Question
 
+FORMA_ALIASES = {
+    "extralaboral": "extralaboral",
+    "datos_generales": "datos_generales",
+}
+
+
+def canonicalize_forma(forma: str) -> str:
+    return FORMA_ALIASES.get(forma, forma)
+
 def find_official_data_dir() -> Path:
     env_dir = os.environ.get("OFFICIAL_DATA_DIR")
     if env_dir and Path(env_dir).exists():
@@ -55,7 +64,7 @@ def seed_questions_from_json(db: Session) -> int:
 
         forma = item["forma"]
         prefix = item["prefix"]
-        escala_def = data.get("escala_respuesta", [])
+        escala_def = data.get("escala_respuesta") or data.get("escala_respuesta") or []
 
         if "secciones" in data:
             for sec in data["secciones"]:
@@ -133,6 +142,8 @@ def get_questionnaire_structure(forma: str, db: Session) -> dict:
     Retorna la estructura del cuestionario (nombre, instrucciones, escala de respuesta y preguntas)
     a partir del archivo JSON oficial original en /official_data/.
     """
+    forma = canonicalize_forma(forma)
+
     file_map = {
         "A": "cuestionario_intralaboral_forma_a.json",
         "B": "cuestionario_intralaboral_forma_b.json",
@@ -162,10 +173,19 @@ def get_questionnaire_structure(forma: str, db: Session) -> dict:
         for sec in data["secciones"]:
             for q in sec.get("preguntas", []):
                 code = f"{prefix}_{q['id']}"
-                q["db_id"] = questions_in_db.get(code)
+                qid = questions_in_db.get(code)
+                q["db_id"] = qid
+                q["db_id"] = qid
     elif "preguntas" in data:
         for q in data["preguntas"]:
             code = f"{prefix}_{q['id']}"
-            q["db_id"] = questions_in_db.get(code)
+            qid = questions_in_db.get(code)
+            q["db_id"] = qid
+            q["db_id"] = qid
+
+    if "escala_respuesta" in data and "escala_respuesta" not in data:
+        data["escala_respuesta"] = data["escala_respuesta"]
+    elif "escala_respuesta" in data and "escala_respuesta" not in data:
+        data["escala_respuesta"] = data["escala_respuesta"]
 
     return data

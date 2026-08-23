@@ -1,5 +1,6 @@
 from typing import Dict, Any
 from app.calculations.risk_levels import classify_risk
+from app.calculations.likert import likert_frequency_0_3
 
 GROUP_A_ITEMS = {1, 2, 3, 9, 13, 14, 15, 23, 24}
 GROUP_B_ITEMS = {4, 5, 6, 10, 11, 16, 17, 18, 19, 25, 26, 27, 28}
@@ -22,11 +23,7 @@ BAREMOS_ESTRES_GRUPO2 = [
 ]
 
 def score_item_estres(q_num: int, val_str: str) -> float:
-    map_opt = {
-        "Siempre": 3, "Casi siempre": 2, "A veces": 1, "Algunas veces": 1, "Nunca": 0,
-        "3": 3, "2": 2, "1": 1, "0": 0
-    }
-    raw = map_opt.get(str(val_str).strip(), 0)
+    raw = likert_frequency_0_3(val_str)
 
     if q_num in GROUP_A_ITEMS:
         # 3->9, 2->6, 1->3, 0->0

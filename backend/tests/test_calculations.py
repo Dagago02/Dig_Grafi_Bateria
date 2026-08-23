@@ -36,6 +36,18 @@ def test_extralaboral_scoring():
     assert 0.0 <= res1["total"]["puntaje_transformado"] <= 100.0
     assert 0.0 <= res2["total"]["puntaje_transformado"] <= 100.0
 
+def test_likert_label_aliases_match_numeric_frequency():
+    from app.calculations.intralaboral import score_item
+
+    assert score_item("A", 1, "Siempre") == score_item("A", 1, "4")
+    assert score_item("A", 1, "Casi siempre") == score_item("A", 1, "3")
+    assert score_item("A", 1, "Casi siempre") == score_item("A", 1, "3")
+    assert score_item("A", 1, "A veces") == score_item("A", 1, "2")
+    assert score_item("A", 4, "Siempre") == 0
+    assert score_item("A", 4, "4") == 0
+    assert score_item("A", 1, "Siempre") == 4
+
+
 def test_estres_scoring():
     # Mock answers for Estrés (1..31)
     answers_estres = {i: "A veces" for i in range(1, 32)}

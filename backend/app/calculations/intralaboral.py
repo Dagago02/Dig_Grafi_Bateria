@@ -1,5 +1,6 @@
 from typing import Dict, Any, List
 from app.calculations.risk_levels import classify_risk
+from app.calculations.likert import likert_frequency_0_4
 
 # --- FORMA A CONFIGURATION ---
 
@@ -136,11 +137,7 @@ def score_item(forma: str, q_num: int, val_str: str) -> int:
     Convierte una respuesta dada ("Siempre", "Casi siempre", "Algunas veces", "Casi nunca", "Nunca" o "0".."4")
     en su valor entero según la dirección del ítem (directo vs inverso).
     """
-    map_likert = {
-        "Siempre": 4, "Casi siempre": 3, "Algunas veces": 2, "Casi nunca": 1, "Nunca": 0,
-        "4": 4, "3": 3, "2": 2, "1": 1, "0": 0
-    }
-    raw_val = map_likert.get(str(val_str).strip(), 0)
+    raw_val = likert_frequency_0_4(val_str)
 
     inverse_set = INVERSE_ITEMS_FORMA_A if forma == "A" else INVERSE_ITEMS_FORMA_B
 
