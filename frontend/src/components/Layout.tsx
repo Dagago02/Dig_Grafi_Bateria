@@ -44,8 +44,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <NavLink 
             to="/evaluations" 
             className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
-            onClick={(e) => e.preventDefault()} // Disabled/placeholder for now
-            style={{ opacity: 0.5, cursor: 'not-allowed' }}
           >
             <ClipboardList size={20} />
             <span>Evaluaciones</span>
@@ -54,8 +52,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <NavLink 
             to="/participants" 
             className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
-            onClick={(e) => e.preventDefault()} // Disabled/placeholder for now
-            style={{ opacity: 0.5, cursor: 'not-allowed' }}
           >
             <Users size={20} />
             <span>Participantes</span>

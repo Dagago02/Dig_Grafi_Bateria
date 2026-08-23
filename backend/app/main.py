@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+import app.models
 from app.core.config import settings
-from app.api.endpoints import companies
+from app.api.endpoints import companies, evaluations, participants, questions, answers
 
 app = FastAPI(
     title="Batería de Riesgo Psicosocial API",
@@ -21,6 +22,10 @@ if settings.CORS_ORIGINS:
 
 # Include Routers
 app.include_router(companies.router, prefix=f"{settings.API_V1_STR}/companies", tags=["Companies"])
+app.include_router(evaluations.router, prefix=f"{settings.API_V1_STR}/evaluations", tags=["Evaluations"])
+app.include_router(participants.router, prefix=f"{settings.API_V1_STR}/participants", tags=["Participants"])
+app.include_router(questions.router, prefix=f"{settings.API_V1_STR}/questions", tags=["Questions"])
+app.include_router(answers.router, prefix=f"{settings.API_V1_STR}/answers", tags=["Answers"])
 
 # Root/Health check endpoints
 @app.get("/")

@@ -4,13 +4,26 @@ import api from '../services/api';
 
 export const Dashboard: React.FC = () => {
   const [companyCount, setCompanyCount] = useState<number>(0);
+  const [evalCount, setEvalCount] = useState<number>(0);
+  const [participantCount, setParticipantCount] = useState<number>(0);
+  const [completedCount, setCompletedCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await api.get('/companies/');
-        setCompanyCount(response.data.length);
+        const [compRes, evalRes, partRes] = await Promise.all([
+          api.get('/companies/'),
+          api.get('/evaluations/'),
+          api.get('/participants/'),
+        ]);
+
+        setCompanyCount(compRes.data.length);
+        const activeEvals = evalRes.data.filter((e: any) => e.estado === 'activa');
+        setEvalCount(activeEvals.length);
+        setParticipantCount(partRes.data.length);
+        const completed = partRes.data.filter((p: any) => p.estado_evaluacion === 'completado');
+        setCompletedCount(completed.length);
       } catch (err) {
         console.error('Error fetching dashboard stats', err);
       } finally {
@@ -28,7 +41,6 @@ export const Dashboard: React.FC = () => {
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', marginBottom: '40px' }}>
-        
         {/* Card 1 */}
         <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '20px', margin: 0 }}>
           <div style={{ padding: '16px', borderRadius: 'var(--radius-md)', backgroundColor: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary)' }}>
@@ -49,7 +61,9 @@ export const Dashboard: React.FC = () => {
           </div>
           <div>
             <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 500 }}>Evaluaciones Activas</div>
-            <div style={{ fontSize: '2rem', fontWeight: 700, lineHeight: 1.2, marginTop: '4px' }}>0</div>
+            <div style={{ fontSize: '2rem', fontWeight: 700, lineHeight: 1.2, marginTop: '4px' }}>
+              {loading ? '...' : evalCount}
+            </div>
           </div>
         </div>
 
@@ -60,7 +74,9 @@ export const Dashboard: React.FC = () => {
           </div>
           <div>
             <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 500 }}>Total Participantes</div>
-            <div style={{ fontSize: '2rem', fontWeight: 700, lineHeight: 1.2, marginTop: '4px' }}>0</div>
+            <div style={{ fontSize: '2rem', fontWeight: 700, lineHeight: 1.2, marginTop: '4px' }}>
+              {loading ? '...' : participantCount}
+            </div>
           </div>
         </div>
 
@@ -71,10 +87,11 @@ export const Dashboard: React.FC = () => {
           </div>
           <div>
             <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 500 }}>Encuestas Completadas</div>
-            <div style={{ fontSize: '2rem', fontWeight: 700, lineHeight: 1.2, marginTop: '4px' }}>0</div>
+            <div style={{ fontSize: '2rem', fontWeight: 700, lineHeight: 1.2, marginTop: '4px' }}>
+              {loading ? '...' : completedCount}
+            </div>
           </div>
         </div>
-
       </div>
 
       <div className="card">
@@ -83,7 +100,7 @@ export const Dashboard: React.FC = () => {
           Esta plataforma permite la digitalización completa del instrumento para la evaluación de factores de riesgo psicosocial del Ministerio de Trabajo de Colombia.
         </p>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.6 }}>
-          Usa el menú lateral para acceder a la gestión de <strong>Empresas</strong> y comenzar el proceso de configuración.
+          Usa el menú lateral para acceder a la gestión de <strong>Empresas</strong>, <strong>Evaluaciones</strong> y <strong>Participantes</strong>.
         </p>
       </div>
     </div>
