@@ -17,6 +17,8 @@ const PIE_COLORS = [
   'hsl(210, 70%, 40%)',
   'hsl(30, 90%, 50%)',
   'hsl(210, 10%, 70%)',
+  'hsl(145, 60%, 42%)',
+  'hsl(280, 60%, 50%)',
 ];
 
 const GRADIENT_BLUES = [

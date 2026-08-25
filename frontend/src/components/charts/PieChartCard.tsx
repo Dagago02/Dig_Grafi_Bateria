@@ -1,4 +1,6 @@
+import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { Maximize2, X } from 'lucide-react';
 import { ChartData } from '../../types/dashboard';
 
 interface PieChartCardProps {
@@ -25,6 +27,7 @@ export const PieChartCard = ({
   showLegend = true,
   showTable = true
 }: PieChartCardProps) => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const filteredData = data.filter(item => item.value > 0);
 
   const renderLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: any) => {
@@ -48,11 +51,22 @@ export const PieChartCard = ({
     );
   };
 
-  return (
-    <div className="dashboard-card animate-fade-in">
-      <h3 className="chart-title">{title}</h3>
+  const renderContent = (expanded: boolean) => (
+    <>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+        <h3 className="chart-title" style={{ marginBottom: 0 }}>{title}</h3>
+        {!expanded && (
+          <button 
+            onClick={() => setIsExpanded(true)}
+            style={{ color: 'var(--text-secondary)', cursor: 'pointer', background: 'none', border: 'none' }}
+            title="Expandir Gráfica"
+          >
+            <Maximize2 size={16} />
+          </button>
+        )}
+      </div>
 
-      <div className="flex flex-col lg:flex-row gap-4">
+      <div className={`flex flex-col lg:flex-row gap-4 ${expanded ? 'flex-1' : ''}`}>
         {showTable && (
           <div className="lg:w-1/3">
             <table className="w-full text-xs">
@@ -67,10 +81,10 @@ export const PieChartCard = ({
                   <tr key={item.name} className="border-b border-border/50">
                     <td className="py-1 flex items-center gap-2">
                       <span
-                        className="w-2 h-2 rounded-full"
+                        className="w-2 h-2 rounded-full flex-shrink-0"
                         style={{ backgroundColor: colors[index % colors.length] }}
                       />
-                      {item.name}
+                      <span className="truncate max-w-40" title={item.name}>{item.name}</span>
                     </td>
                     <td className="text-right py-1 font-medium">{item.value}</td>
                   </tr>
@@ -80,14 +94,14 @@ export const PieChartCard = ({
           </div>
         )}
 
-        <div className={`${showTable ? 'lg:w-2/3' : 'w-full'} h-56`}>
+        <div className={`${showTable ? 'lg:w-2/3' : 'w-full'} ${expanded ? 'min-h-[400px] flex-1' : 'h-56'}`}>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
                 data={filteredData}
                 cx="50%"
                 cy="52%"
-                outerRadius={75}
+                outerRadius={expanded ? 120 : 75}
                 dataKey="value"
                 label={renderLabel}
                 labelLine={false}
@@ -119,6 +133,30 @@ export const PieChartCard = ({
           </ResponsiveContainer>
         </div>
       </div>
-    </div>
+    </>
+  );
+
+  return (
+    <>
+      <div className="dashboard-card animate-fade-in relative">
+        {renderContent(false)}
+      </div>
+
+      {isExpanded && (
+        <div className="modal-overlay" style={{ zIndex: 100 }}>
+          <div className="modal-content dashboard-card" style={{ maxWidth: '1000px', width: '95%', display: 'flex', flexDirection: 'column', maxHeight: '90vh', overflowY: 'auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '8px' }}>
+              <button 
+                onClick={() => setIsExpanded(false)}
+                style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer' }}
+              >
+                <X size={24} />
+              </button>
+            </div>
+            {renderContent(true)}
+          </div>
+        </div>
+      )}
+    </>
   );
 };

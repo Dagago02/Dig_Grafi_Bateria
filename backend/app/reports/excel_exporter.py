@@ -16,7 +16,10 @@ def generate_evaluation_excel(evaluation_id: int, db: Session) -> io.BytesIO:
     if not evaluation:
         raise ValueError(f"Evaluación id {evaluation_id} no encontrada.")
 
-    participants = db.query(Participant).filter(Participant.evaluacion_id == evaluation_id).all()
+    participants = db.query(Participant).filter(
+        Participant.evaluacion_id == evaluation_id,
+        Participant.estado_evaluacion == 'completado'
+    ).all()
 
     wb = openpyxl.Workbook()
     ws = wb.active

@@ -7,6 +7,7 @@ import { Evaluations } from './pages/Evaluations';
 import { Participants } from './pages/Participants';
 import { Digitador } from './pages/Digitador';
 import { Results } from './pages/Results';
+import { ExternalDB } from './pages/ExternalDB';
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
           <Route path="/participants" element={<Participants />} />
           <Route path="/digitador/:participantId" element={<Digitador />} />
           <Route path="/results" element={<Results />} />
+          <Route path="/external-db" element={<ExternalDB />} />
           {/* Fallback route */}
           <Route path="*" element={<Dashboard />} />
         </Routes>

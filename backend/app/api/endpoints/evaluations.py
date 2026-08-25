@@ -20,6 +20,11 @@ def create_evaluation(eval_in: EvaluationCreate, db: Session = Depends(get_db)):
             status_code=status.HTTP_404_NOT_FOUND,
             detail="La empresa especificada no existe."
         )
+    if company.estado in ["inactiva", "archivada"]:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="No se pueden crear evaluaciones para una empresa inactiva o archivada."
+        )
 
     evaluation = Evaluation(**eval_in.model_dump())
     db.add(evaluation)

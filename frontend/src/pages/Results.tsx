@@ -9,6 +9,7 @@ import { IntralaboralDashboard } from '../components/IntralaboralDashboard';
 import { ExtralaboralDashboard } from '../components/ExtralaboralDashboard';
 import { StressDashboard } from '../components/StressDashboard';
 import { CombinedDashboard } from '../components/CombinedDashboard';
+import { BaremosTableDashboard, DepartmentBaremosData } from '../components/charts/BaremosTableDashboard';
 
 interface Company {
   id: number;
@@ -29,6 +30,7 @@ export const Results: React.FC = () => {
   const [selectedEvaluation, setSelectedEvaluation] = useState<string>('');
 
   const [dashboardStats, setDashboardStats] = useState<DashboardResponse | null>(null);
+  const [baremosData, setBaremosData] = useState<DepartmentBaremosData | null>(null);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [calculating, setCalculating] = useState<boolean>(false);
@@ -54,8 +56,10 @@ export const Results: React.FC = () => {
   useEffect(() => {
     if (selectedEvaluation) {
       fetchDashboardStats(Number(selectedEvaluation));
+      fetchBaremosData(Number(selectedEvaluation));
     } else {
       setDashboardStats(null);
+      setBaremosData(null);
     }
   }, [selectedEvaluation]);
 
@@ -85,6 +89,17 @@ export const Results: React.FC = () => {
     }
   };
 
+  const fetchBaremosData = async (evalId: number) => {
+    try {
+      const res = await api.get(`/results/evaluation/${evalId}/baremos-por-departamento`);
+      setBaremosData(res.data);
+    } catch (err: any) {
+      if (err.response?.status === 404) {
+        setBaremosData(null);
+      }
+    }
+  };
+
   const fetchDashboardStats = async (evalId: number) => {
     setLoading(true);
     setError(null);
@@ -92,7 +107,6 @@ export const Results: React.FC = () => {
       const res = await api.get(`/results/evaluation/${evalId}/dashboard-stats`);
       setDashboardStats(res.data);
     } catch (err: any) {
-      // If 404, just set null stats
       if (err.response?.status === 404) {
         setDashboardStats(null);
       } else {
@@ -112,6 +126,7 @@ export const Results: React.FC = () => {
       await api.post(`/results/calculate-evaluation/${selectedEvaluation}`);
       setSuccess('Cálculo finalizado para todos los participantes de la evaluación.');
       fetchDashboardStats(Number(selectedEvaluation));
+      fetchBaremosData(Number(selectedEvaluation));
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Error al ejecutar cálculo masivo.');
     } finally {
@@ -268,6 +283,12 @@ export const Results: React.FC = () => {
             >
               📑 Consolidado
             </button>
+            <button
+              className={`btn ${activeTab === 'baremos' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => setActiveTab('baremos')}
+            >
+              🚦 Baremos
+            </button>
           </div>
 
           {/* Tab contents */}
@@ -292,6 +313,9 @@ export const Results: React.FC = () => {
             )}
             {activeTab === 'consolidado' && (
               <CombinedDashboard stats={dashboardStats.intralaboral} />
+            )}
+            {activeTab === 'baremos' && (
+              <BaremosTableDashboard data={baremosData} />
             )}
           </div>
         </div>

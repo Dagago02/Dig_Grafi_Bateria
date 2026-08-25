@@ -169,6 +169,30 @@ def calculate_intralaboral(answers_map: Dict[int, str], forma: str) -> Dict[str,
         items = dim["items"]
         factor = dim["factor"]
 
+        if dim_name == "Demandas emocionales":
+            filtro_id = 90106 if forma == "A" else 90089
+            filtro_ans = answers_map.get(filtro_id, "").strip().lower()
+            if filtro_ans == "no":
+                dim_raw_sums[dim_name] = 0
+                dimension_results[dim_name] = {
+                    "puntaje_bruto": 0,
+                    "puntaje_transformado": 0.0,
+                    "nivel_riesgo": "Sin riesgo o riesgo despreciable"
+                }
+                continue
+
+        if forma == "A" and dim_name == "Relación con los colaboradores":
+            filtro_id = 90115
+            filtro_ans = answers_map.get(filtro_id, "").strip().lower()
+            if filtro_ans == "no":
+                dim_raw_sums[dim_name] = 0
+                dimension_results[dim_name] = {
+                    "puntaje_bruto": 0,
+                    "puntaje_transformado": 0.0,
+                    "nivel_riesgo": "Sin riesgo o riesgo despreciable"
+                }
+                continue
+
         raw_sum = 0
         for item_num in items:
             ans_val = answers_map.get(item_num, "Nunca")

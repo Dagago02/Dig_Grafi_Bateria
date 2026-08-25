@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Edit, Trash2, X, AlertTriangle, Search, Filter, UserCheck, FileText, BarChart3 } from 'lucide-react';
+import { Plus, Edit, Trash2, X, AlertTriangle, Search, Filter, UserCheck, FileText, BarChart3, Eye, EyeOff } from 'lucide-react';
 import api from '../services/api';
 import { ParticipantResultsModal } from '../components/ParticipantResultsModal';
 
@@ -13,6 +13,7 @@ interface Evaluation {
   id: number;
   empresa_id: number;
   nombre: string;
+  estado?: string;
 }
 
 interface Participant {
@@ -58,6 +59,9 @@ export const Participants: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editingParticipant, setEditingParticipant] = useState<Participant | null>(null);
   const [viewingParticipantId, setViewingParticipantId] = useState<number | null>(null);
+
+  // Privacy Mode State
+  const [privacyMode, setPrivacyMode] = useState<boolean>(false);
 
   // Form State
   const [empresaId, setEmpresaId] = useState<number | ''>('');
@@ -231,15 +235,25 @@ export const Participants: React.FC = () => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <h1 className="page-title">Participantes</h1>
           <p className="page-subtitle">Gestión de trabajadores a evaluar y asignación de Forma A / B</p>
         </div>
-        <button className="btn btn-primary" onClick={openCreateModal}>
-          <Plus size={18} />
-          Nuevo Participante
-        </button>
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <button 
+            className={`btn ${privacyMode ? 'btn-primary' : 'btn-secondary'}`} 
+            onClick={() => setPrivacyMode(!privacyMode)}
+            title="Modo Privacidad"
+          >
+            {privacyMode ? <EyeOff size={18} /> : <Eye size={18} />}
+            {privacyMode ? ' Ocultar Datos' : ' Mostrar Datos'}
+          </button>
+          <button className="btn btn-primary" onClick={openCreateModal}>
+            <Plus size={18} />
+            Nuevo Participante
+          </button>
+        </div>
       </div>
 
       {error && (
@@ -356,9 +370,9 @@ export const Participants: React.FC = () => {
               <tbody>
                 {participants.map((p) => (
                   <tr key={p.id}>
-                    <td style={{ fontWeight: 600 }}>{p.cedula}</td>
+                    <td style={{ fontWeight: 600 }}>{privacyMode ? '***' : p.cedula}</td>
                     <td>
-                      {p.nombres} {p.apellidos}
+                      {privacyMode ? '*** ***' : `${p.nombres} ${p.apellidos}`}
                     </td>
                     <td>
                       <div style={{ fontSize: '0.85rem' }}>
@@ -493,8 +507,12 @@ export const Participants: React.FC = () => {
                       Seleccionar evaluación
                     </option>
                     {filteredEvaluationsForForm.map((ev) => (
-                      <option key={ev.id} value={ev.id}>
-                        {ev.nombre}
+                      <option 
+                        key={ev.id} 
+                        value={ev.id}
+                        disabled={!editingParticipant && ev.estado === 'completada'}
+                      >
+                        {ev.nombre} {ev.estado === 'completada' ? '(Completada)' : ''}
                       </option>
                     ))}
                   </select>

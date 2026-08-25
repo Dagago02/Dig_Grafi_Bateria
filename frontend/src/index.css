@@ -397,6 +397,11 @@ body {
   color: #334155 !important;
 }
 
+/* Forzar que las filas o celdas marcadas con text-white sean realmente blancas */
+.dashboard-card tr.text-white td, .dashboard-card td.text-white {
+  color: #ffffff !important;
+}
+
 .dashboard-card h3, .dashboard-card h4 {
   color: #0f172a !important;
 }

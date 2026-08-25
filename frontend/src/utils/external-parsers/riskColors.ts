@@ -23,7 +23,7 @@ export const RISK_LEVELS: Record<RiskLevel, RiskColorConfig> = {
     medio: {
         label: 'MEDIO',
         bgClass: 'bg-yellow-400',
-        textClass: 'text-white',
+        textClass: 'text-slate-900',
         chartColor: 'hsl(45, 100%, 50%)'
     },
     bajo: {

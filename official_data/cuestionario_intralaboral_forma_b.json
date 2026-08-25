@@ -166,7 +166,7 @@
       "nombre": "Atención a clientes y usuarios",
       "condicional": {
         "pregunta_filtro": "En mi trabajo debo brindar servicio a clientes o usuarios",
-        "id_filtro": "89_filtro",
+        "id_filtro": 90089,
         "tipo_filtro": "si_no",
         "aplica_si": "Si",
         "si_no_aplica": "pasar a la sección Ficha de Datos Generales (fin del cuestionario intralaboral)"

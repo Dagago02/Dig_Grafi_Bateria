@@ -28,6 +28,11 @@ def create_participant(part_in: ParticipantCreate, db: Session = Depends(get_db)
             status_code=status.HTTP_404_NOT_FOUND,
             detail="La evaluación especificada no existe."
         )
+    if evaluation.estado == "completada":
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="No se pueden añadir participantes a una evaluación completada."
+        )
 
     # Check unique constraint (cedula + evaluacion_id)
     existing = db.query(Participant).filter(

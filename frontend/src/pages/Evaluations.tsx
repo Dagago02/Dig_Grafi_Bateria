@@ -5,6 +5,7 @@ import api from '../services/api';
 interface Company {
   id: number;
   nombre: string;
+  estado?: string;
 }
 
 interface Evaluation {
@@ -307,8 +308,12 @@ export const Evaluations: React.FC = () => {
                     Selecciona una empresa
                   </option>
                   {companies.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.nombre}
+                    <option 
+                      key={c.id} 
+                      value={c.id}
+                      disabled={!editingEvaluation && (c.estado === 'inactiva' || c.estado === 'archivada')}
+                    >
+                      {c.nombre} {(c.estado === 'inactiva' || c.estado === 'archivada') ? '(Inactiva/Archivada)' : ''}
                     </option>
                   ))}
                 </select>

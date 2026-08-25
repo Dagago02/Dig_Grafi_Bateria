@@ -20,13 +20,21 @@ interface Question {
   id: number;
   texto: string;
   db_id?: number;
-  db_id?: number;
   opciones?: any[];
   tipo?: string;
+  ayuda?: string;
+}
+
+interface Condicional {
+  pregunta_filtro: string;
+  id_filtro: number;
+  tipo_filtro: string;
+  aplica_si: string;
 }
 
 interface Section {
   nombre: string;
+  condicional?: Condicional;
   preguntas: Question[];
 }
 
@@ -173,21 +181,57 @@ export const Digitador: React.FC = () => {
 
   const currentStruct = getCurrentStructure();
 
-  // Extract all questions for active questionnaire
-  const getQuestionsList = (struct: QuestionnaireStructure | null): Question[] => {
+  // Extract applicable questions, filtering out sections that do not apply
+  const getApplicableQuestions = (struct: QuestionnaireStructure | null): Question[] => {
     if (!struct) return [];
     if (struct.secciones) {
-      return struct.secciones.flatMap((s) => s.preguntas);
+      let applicable: Question[] = [];
+      struct.secciones.forEach((sec) => {
+        const hasFilter = !!sec.condicional;
+        const filterValue = hasFilter ? answers[sec.condicional!.id_filtro] || '' : '';
+        const showQuestions = !hasFilter || filterValue === sec.condicional!.aplica_si;
+        
+        // Include the filter question itself if it exists
+        if (hasFilter) {
+          applicable.push({
+            id: 0,
+            db_id: sec.condicional!.id_filtro,
+            texto: sec.condicional!.pregunta_filtro,
+            tipo: sec.condicional!.tipo_filtro,
+          });
+        }
+
+        if (showQuestions) {
+          applicable = [...applicable, ...sec.preguntas];
+        }
+      });
+      return applicable;
     }
     return struct.preguntas || [];
   };
 
-  const activeQuestions = getQuestionsList(currentStruct);
+  const activeQuestions = getApplicableQuestions(currentStruct);
   const answeredActiveCount = activeQuestions.filter((q) => {
     const qid = questionDbId(q);
     return qid !== undefined && answers[qid] !== undefined && answers[qid] !== '';
   }).length;
   const activeProgressPercent = activeQuestions.length > 0 ? Math.round((answeredActiveCount / activeQuestions.length) * 100) : 0;
+
+  const isFullyCompleted = (): boolean => {
+    const structs = [structDG, structIntra, structExtra, structEstres];
+    if (structs.some(s => s === null)) return false;
+
+    for (const struct of structs) {
+      const applicable = getApplicableQuestions(struct);
+      for (const q of applicable) {
+        const qid = questionDbId(q);
+        if (qid !== undefined && (answers[qid] === undefined || answers[qid] === '')) {
+          return false; // Found an unanswered applicable question
+        }
+      }
+    }
+    return true;
+  };
 
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
@@ -203,7 +247,12 @@ export const Digitador: React.FC = () => {
             <Save size={18} />
             {saving ? 'Guardando...' : 'Guardar Borrador'}
           </button>
-          <button className="btn btn-primary" onClick={() => saveAnswers('completado')} disabled={saving}>
+          <button 
+            className="btn btn-primary" 
+            onClick={() => saveAnswers('completado')} 
+            disabled={saving || !isFullyCompleted()}
+            title={!isFullyCompleted() ? "Debe responder todas las preguntas obligatorias" : ""}
+          >
             <CheckCircle2 size={18} />
             Marcar como Completado
           </button>
@@ -343,35 +392,80 @@ export const Digitador: React.FC = () => {
 
           {/* Render Sections or Flat Questions */}
           {currentStruct.secciones ? (
-            currentStruct.secciones.map((sec, secIdx) => (
-              <div key={secIdx} style={{ marginBottom: '32px' }}>
-                <h4
-                  style={{
-                    fontSize: '1.05rem',
-                    fontWeight: 600,
-                    color: '#60a5fa',
-                    backgroundColor: 'rgba(59, 130, 246, 0.08)',
-                    padding: '10px 16px',
-                    borderRadius: '6px',
-                    marginBottom: '16px',
-                  }}
-                >
-                  {sec.nombre}
-                </h4>
+            currentStruct.secciones.map((sec, secIdx) => {
+              const hasFilter = !!sec.condicional;
+              const filterValue = hasFilter ? answers[sec.condicional!.id_filtro] || '' : '';
+              const showQuestions = !hasFilter || filterValue === sec.condicional!.aplica_si;
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  {sec.preguntas.map((q) => (
-                    <QuestionRow
-                      key={q.id}
-                      question={q}
-                      scale={questionnaireScale(currentStruct)}
-                      currentValue={questionDbId(q) ? answers[questionDbId(q)!] || '' : ''}
-                      onChange={(val) => questionDbId(q) && handleAnswerChange(questionDbId(q)!, val)}
-                    />
-                  ))}
+              return (
+                <div key={secIdx} style={{ marginBottom: '32px' }}>
+                  <h4
+                    style={{
+                      fontSize: '1.05rem',
+                      fontWeight: 600,
+                      color: '#60a5fa',
+                      backgroundColor: 'rgba(59, 130, 246, 0.08)',
+                      padding: '10px 16px',
+                      borderRadius: '6px',
+                      marginBottom: '16px',
+                    }}
+                  >
+                    {sec.nombre}
+                  </h4>
+
+                  {hasFilter && (
+                    <div style={{ marginBottom: '16px', padding: '16px', backgroundColor: 'rgba(236, 72, 153, 0.1)', borderRadius: '8px', border: '1px solid rgba(236, 72, 153, 0.2)' }}>
+                      <p style={{ fontWeight: 600, marginBottom: '12px', color: '#f472b6' }}>
+                        Pregunta Filtro: {sec.condicional!.pregunta_filtro}
+                      </p>
+                      <div style={{ display: 'flex', gap: '16px' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', color: '#e2e8f0' }}>
+                          <input 
+                            type="radio" 
+                            name={`filtro_${sec.condicional!.id_filtro}`} 
+                            value="Si" 
+                            checked={filterValue === 'Si'} 
+                            onChange={() => handleAnswerChange(sec.condicional!.id_filtro, 'Si')} 
+                            style={{ cursor: 'pointer' }}
+                          /> 
+                          Sí
+                        </label>
+                        <label style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', color: '#e2e8f0' }}>
+                          <input 
+                            type="radio" 
+                            name={`filtro_${sec.condicional!.id_filtro}`} 
+                            value="No" 
+                            checked={filterValue === 'No'} 
+                            onChange={() => handleAnswerChange(sec.condicional!.id_filtro, 'No')} 
+                            style={{ cursor: 'pointer' }}
+                          /> 
+                          No
+                        </label>
+                      </div>
+                    </div>
+                  )}
+
+                  {showQuestions && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      {sec.preguntas.map((q) => (
+                        <QuestionRow
+                          key={q.id}
+                          question={q}
+                          scale={questionnaireScale(currentStruct)}
+                          currentValue={questionDbId(q) ? answers[questionDbId(q)!] || '' : ''}
+                          onChange={(val) => questionDbId(q) && handleAnswerChange(questionDbId(q)!, val)}
+                        />
+                      ))}
+                    </div>
+                  )}
+                  {!showQuestions && hasFilter && filterValue !== '' && filterValue !== sec.condicional!.aplica_si && (
+                    <div style={{ padding: '16px', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '8px', color: 'var(--text-secondary)', textAlign: 'center', fontStyle: 'italic' }}>
+                      Esta sección no aplica según su respuesta anterior.
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))
+              );
+            })
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {currentStruct.preguntas?.map((q) => (
@@ -455,10 +549,15 @@ const QuestionRow: React.FC<QuestionRowProps> = ({ question, scale, currentValue
         border: '1px solid rgba(255,255,255,0.05)',
       }}
     >
-      <div style={{ fontSize: '0.95rem', fontWeight: 500, marginBottom: '12px', color: '#f1f5f9', lineHeight: 1.4 }}>
+      <div style={{ fontSize: '0.95rem', fontWeight: 500, marginBottom: '8px', color: '#f1f5f9', lineHeight: 1.4 }}>
         <span style={{ fontWeight: 700, color: '#94a3b8', marginRight: '8px' }}>{question.id}.</span>
         {question.texto}
       </div>
+      {question.ayuda && (
+        <div style={{ fontSize: '0.85rem', color: '#94a3b8', marginBottom: '12px', fontStyle: 'italic' }}>
+          💡 {question.ayuda}
+        </div>
+      )}
 
       {optionsToRender.length > 0 ? (
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
@@ -495,7 +594,7 @@ const QuestionRow: React.FC<QuestionRowProps> = ({ question, scale, currentValue
       ) : (
         <div>
           <input
-            type="text"
+            type={question.tipo === 'numero' ? 'number' : 'text'}
             className="form-control"
             value={currentValue}
             onChange={(e) => onChange(e.target.value)}

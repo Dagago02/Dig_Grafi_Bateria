@@ -100,11 +100,8 @@
     {
       "id": 12,
       "texto": "¿Hace cuántos años que trabaja en esta empresa?",
-      "tipo": "compuesto_condicional",
-      "subcampos": [
-        { "id": "12a", "texto": "Lleva menos de un año", "tipo": "booleano" },
-        { "id": "12b", "texto": "Si lleva más de un año, anote cuántos", "tipo": "numero" }
-      ]
+      "tipo": "numero",
+      "ayuda": "Ingrese 0 si lleva menos de 1 año."
     },
     {
       "id": 13,
@@ -125,11 +122,8 @@
     {
       "id": 15,
       "texto": "¿Hace cuántos años que desempeña el cargo u oficio actual en esta empresa?",
-      "tipo": "compuesto_condicional",
-      "subcampos": [
-        { "id": "15a", "texto": "Lleva menos de un año", "tipo": "booleano" },
-        { "id": "15b", "texto": "Si lleva más de un año, anote cuántos", "tipo": "numero" }
-      ]
+      "tipo": "numero",
+      "ayuda": "Ingrese 0 si lleva menos de 1 año."
     },
     {
       "id": 16,

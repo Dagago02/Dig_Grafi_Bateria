@@ -8,7 +8,8 @@ import {
   BarChart3, 
   FileText, 
   Settings,
-  Activity
+  Activity,
+  FileSpreadsheet
 } from 'lucide-react';
 
 interface LayoutProps {
@@ -66,6 +67,14 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </NavLink>
           
           <NavLink 
+            to="/external-db" 
+            className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+          >
+            <FileSpreadsheet size={20} />
+            <span>Base Externa</span>
+          </NavLink>
+          
+          {/* <NavLink 
             to="/reports" 
             className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
             onClick={(e) => e.preventDefault()} // Disabled/placeholder for now
@@ -73,7 +82,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           >
             <FileText size={20} />
             <span>Reportes</span>
-          </NavLink>
+          </NavLink> */}
           
           <NavLink 
             to="/settings" 

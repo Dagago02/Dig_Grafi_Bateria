@@ -10,6 +10,7 @@ from app.models.result import Result
 from app.schemas.result import ResultResponse, ParticipantResultsSummary, EvaluationSummaryResponse, RiskDistribution
 from app.calculations.calculator import calculate_participant_results
 from app.reports.excel_exporter import generate_evaluation_excel
+from app.calculations.baremos_stats import calculate_baremos_por_departamento
 
 router = APIRouter()
 
@@ -78,7 +79,10 @@ def read_evaluation_summary(evaluation_id: int, db: Session = Depends(get_db)):
     if not evaluation:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evaluación no encontrada.")
 
-    participants = db.query(Participant).filter(Participant.evaluacion_id == evaluation_id).all()
+    participants = db.query(Participant).filter(
+        Participant.evaluacion_id == evaluation_id,
+        Participant.estado_evaluacion == 'completado'
+    ).all()
     part_ids = [p.id for p in participants]
 
     results = db.query(Result).filter(Result.participant_id.in_(part_ids)).all() if part_ids else []
@@ -147,7 +151,10 @@ def get_evaluation_dashboard_stats(evaluation_id: int, db: Session = Depends(get
     Returns the consolidated dashboard statistics for an evaluation,
     including demographics and risk level distributions.
     """
-    participants = db.query(Participant).filter(Participant.evaluacion_id == evaluation_id).all()
+    participants = db.query(Participant).filter(
+        Participant.evaluacion_id == evaluation_id,
+        Participant.estado_evaluacion == 'completado'
+    ).all()
     if not participants:
         raise HTTPException(status_code=404, detail="No participants found for this evaluation")
 
@@ -158,3 +165,14 @@ def get_evaluation_dashboard_stats(evaluation_id: int, db: Session = Depends(get
     stats = generate_dashboard_stats(participants, results, db)
     
     return stats
+
+
+@router.get("/evaluation/{evaluation_id}/baremos-por-departamento")
+def get_evaluation_baremos_departamento(evaluation_id: int, db: Session = Depends(get_db)):
+    """
+    Returns the average transformed scores per dimension/domain per department,
+    classified against the baremos tables.
+    Only includes participants with estado_evaluacion='completado'.
+    """
+    data = calculate_baremos_por_departamento(evaluation_id, db)
+    return data

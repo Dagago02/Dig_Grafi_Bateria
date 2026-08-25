@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, AlertTriangle } from 'lucide-react';
+import { X, AlertTriangle, Eye, EyeOff } from 'lucide-react';
 import api from '../services/api';
 
 interface ResultItem {
@@ -85,6 +85,7 @@ export const ParticipantResultsModal: React.FC<Props> = ({ participantId, onClos
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [summary, setSummary] = useState<ParticipantResultsSummary | null>(null);
+  const [privacyMode, setPrivacyMode] = useState(true);
 
   useEffect(() => {
     fetchResults();
@@ -149,8 +150,19 @@ export const ParticipantResultsModal: React.FC<Props> = ({ participantId, onClos
 
               return (
                 <div className="card" style={{ padding: '24px', background: 'linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95))' }}>
-                  <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>
-                    Trabajador: <strong>{summary.nombres}</strong> (Cédula: {summary.cedula} | Forma {summary.tipo_forma})
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                    <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                      Trabajador: <strong>{privacyMode ? '*** ***' : summary.nombres}</strong> (Cédula: {privacyMode ? '***' : summary.cedula} | Forma {summary.tipo_forma})
+                    </div>
+                    <button 
+                      className="btn btn-secondary" 
+                      style={{ padding: '4px 8px', fontSize: '0.8rem' }}
+                      onClick={() => setPrivacyMode(!privacyMode)}
+                      title="Modo Privacidad"
+                    >
+                      {privacyMode ? <EyeOff size={14} /> : <Eye size={14} />}
+                      {privacyMode ? ' Ocultar Datos' : ' Mostrar Datos'}
+                    </button>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginTop: '16px' }}>

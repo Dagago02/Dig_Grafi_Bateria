@@ -188,7 +188,7 @@
       "nombre": "Atención a clientes y usuarios",
       "condicional": {
         "pregunta_filtro": "En mi trabajo debo brindar servicio a clientes o usuarios",
-        "id_filtro": "106_filtro",
+        "id_filtro": 90106,
         "tipo_filtro": "si_no",
         "aplica_si": "Si",
         "si_no_aplica": "pasar a la sección 'Es jefe de otras personas' (o Ficha de Datos Generales si tampoco aplica)"
@@ -209,7 +209,7 @@
       "nombre": "Relación con colaboradores a cargo (jefatura)",
       "condicional": {
         "pregunta_filtro": "Soy jefe de otras personas en mi trabajo",
-        "id_filtro": "115_filtro",
+        "id_filtro": 90115,
         "tipo_filtro": "si_no",
         "aplica_si": "Si",
         "si_no_aplica": "pasar a la sección Ficha de Datos Generales (fin del cuestionario intralaboral)"
