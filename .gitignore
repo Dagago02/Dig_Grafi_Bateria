@@ -24,6 +24,7 @@ dist-ssr/
 # Databases
 postgres_data/
 *.db
+*.sql
 
 # IDEs
 .vscode/
