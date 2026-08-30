@@ -96,8 +96,7 @@ def seed_questions_from_json(db: Session) -> int:
                         db_q.opciones = opciones
 
                     total_seeded += 1
-<<<<<<< HEAD
-=======
+                    total_seeded += 1
 
                 if "condicional" in sec:
                     cond = sec["condicional"]
@@ -123,7 +122,6 @@ def seed_questions_from_json(db: Session) -> int:
                         db_cond.seccion = seccion_nombre
                     
                     total_seeded += 1
->>>>>>> 7be6885 (last version J client)
         elif "preguntas" in data:
             for q in data["preguntas"]:
                 q_num = q["id"]
@@ -199,23 +197,16 @@ def get_questionnaire_structure(forma: str, db: Session) -> dict:
 
     if "secciones" in data:
         for sec in data["secciones"]:
-<<<<<<< HEAD
-=======
             if "condicional" in sec:
                 cond_code = f"{prefix}_FILTRO_{sec['condicional']['id_filtro']}"
                 cond_qid = questions_in_db.get(cond_code)
                 if cond_qid:
                     sec["condicional"]["id_filtro"] = cond_qid
 
->>>>>>> 7be6885 (last version J client)
             for q in sec.get("preguntas", []):
                 code = f"{prefix}_{q['id']}"
                 qid = questions_in_db.get(code)
                 q["db_id"] = qid
-<<<<<<< HEAD
-                q["db_id"] = qid
-=======
->>>>>>> 7be6885 (last version J client)
     elif "preguntas" in data:
         for q in data["preguntas"]:
             code = f"{prefix}_{q['id']}"

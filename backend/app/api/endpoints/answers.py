@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from app.db.session import get_db
 from app.models.answer import Answer
 from app.models.participant import Participant
+from app.models.question import Question
 from app.schemas.answer import AnswerBatchCreate, AnswerResponse
 from app.calculations.calculator import calculate_participant_results
 
@@ -46,6 +47,28 @@ def save_answers_batch(batch_in: AnswerBatchCreate, db: Session = Depends(get_db
 
     if batch_in.estado_evaluacion:
         participant.estado_evaluacion = batch_in.estado_evaluacion
+
+    # Sincronizar datos demográficos al modelo Participant
+    for ans in saved_answers:
+        q = db.query(Question).filter(Question.id == ans.question_id).first()
+        if q and q.forma == "datos_generales":
+            num = q.numero
+            val = ans.value
+            if num == 2: participant.sexo = val
+            elif num == 3:
+                try:
+                    import datetime
+                    participant.edad = datetime.datetime.now().year - int(val)
+                except ValueError:
+                    pass
+            elif num == 4: participant.estado_civil = val
+            elif num == 5: participant.nivel_educativo = val
+            elif num == 12:
+                from app.calculations.dashboard_stats import get_years_range
+                participant.tiempo_empresa = get_years_range(val)
+            elif num == 13: participant.cargo = val
+            elif num == 16: participant.area = val
+            elif num == 17: participant.tipo_contrato = val
 
     db.commit()
 

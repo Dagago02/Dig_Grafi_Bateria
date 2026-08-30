@@ -21,30 +21,6 @@ const PIE_COLORS = [
   'hsl(280, 60%, 50%)',
 ];
 
-const GRADIENT_BLUES = [
-  'hsl(210, 70%, 35%)',
-  'hsl(210, 65%, 40%)',
-  'hsl(210, 60%, 45%)',
-  'hsl(210, 55%, 50%)',
-  'hsl(200, 55%, 55%)',
-  'hsl(195, 50%, 60%)',
-  'hsl(190, 45%, 65%)',
-  'hsl(185, 40%, 70%)',
-  'hsl(180, 35%, 75%)',
-  'hsl(175, 30%, 80%)',
-];
-
-const ESCOLARIDAD_COLORS = [
-  'hsl(145, 60%, 42%)', // Verde para completos
-  'hsl(210, 70%, 40%)', 
-  'hsl(200, 65%, 55%)',
-  'hsl(195, 55%, 60%)',
-  'hsl(190, 50%, 65%)',
-  'hsl(185, 45%, 70%)',
-  'hsl(30, 90%, 50%)',
-  'hsl(210, 10%, 70%)',
-];
-
 export const Dashboard = ({ stats }: DashboardProps) => {
   return (
     <div className="space-y-6 animate-fade-in">
@@ -88,14 +64,13 @@ export const Dashboard = ({ stats }: DashboardProps) => {
           data={stats.escolaridad}
           layout="horizontal"
           showTable={true}
-          gradientColors={ESCOLARIDAD_COLORS}
         />
         <BarChartCard 
           title="ESTRATO" 
           data={stats.estrato}
           layout="vertical"
           showTable={true}
-          gradientColors={GRADIENT_BLUES}
+
         />
       </div>
 
@@ -106,7 +81,7 @@ export const Dashboard = ({ stats }: DashboardProps) => {
           data={stats.antiguedadEmpresa}
           layout="vertical"
           showTable={true}
-          gradientColors={GRADIENT_BLUES}
+
         />
         <PieChartCard 
           title="TIPO DE VIVIENDA" 
@@ -118,7 +93,7 @@ export const Dashboard = ({ stats }: DashboardProps) => {
           data={stats.personasACargo}
           layout="vertical"
           showTable={true}
-          gradientColors={GRADIENT_BLUES}
+
         />
       </div>
 
@@ -129,21 +104,21 @@ export const Dashboard = ({ stats }: DashboardProps) => {
           data={stats.tipoContrato}
           layout="horizontal"
           showTable={true}
-          gradientColors={GRADIENT_BLUES}
+
         />
         <BarChartCard 
           title="ESTADO CIVIL" 
           data={stats.estadoCivil}
           layout="vertical"
           showTable={true}
-          gradientColors={GRADIENT_BLUES}
+
         />
         <BarChartCard 
           title="ANTIGÜEDAD EN EL CARGO" 
           data={stats.antiguedadCargo}
           layout="vertical"
           showTable={true}
-          gradientColors={GRADIENT_BLUES}
+
         />
       </div>
 
@@ -154,14 +129,14 @@ export const Dashboard = ({ stats }: DashboardProps) => {
           data={stats.tipoCargo}
           layout="horizontal"
           showTable={true}
-          gradientColors={GRADIENT_BLUES}
+
         />
         <BarChartCard 
           title="TIPO DE SALARIO" 
           data={stats.tipoSalario}
           layout="vertical"
           showTable={true}
-          gradientColors={GRADIENT_BLUES}
+
         />
         <PieChartCard 
           title="RANGOS DE EDAD" 

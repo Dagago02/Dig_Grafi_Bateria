@@ -14,12 +14,14 @@ interface BarChartCardProps {
 }
 
 const DEFAULT_GRADIENT = [
-  'hsl(210, 70%, 35%)',
-  'hsl(210, 65%, 40%)',
-  'hsl(210, 60%, 45%)',
-  'hsl(210, 55%, 50%)',
-  'hsl(200, 55%, 55%)',
-  'hsl(195, 50%, 60%)',
+  '#007BFF', // Azul primario
+  '#DC3545', // Rojo
+  '#FFC107', // Amarillo
+  '#28A745', // Verde
+  '#FD7E14', // Naranja
+  '#17A2B8', // Cian
+  '#6F42C1', // Púrpura
+  '#10f21bff', // Índigo
 ];
 
 export const BarChartCard = ({
@@ -38,7 +40,7 @@ export const BarChartCard = ({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
         <h3 className="chart-title" style={{ marginBottom: 0 }}>{title}</h3>
         {!expanded && (
-          <button 
+          <button
             onClick={() => setIsExpanded(true)}
             style={{ color: 'var(--text-secondary)', cursor: 'pointer', background: 'none', border: 'none' }}
             title="Expandir Gráfica"
@@ -159,7 +161,7 @@ export const BarChartCard = ({
         <div className="modal-overlay" style={{ zIndex: 100 }}>
           <div className="modal-content dashboard-card" style={{ maxWidth: '1000px', width: '95%', display: 'flex', flexDirection: 'column', maxHeight: '90vh', overflowY: 'auto' }}>
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '8px' }}>
-              <button 
+              <button
                 onClick={() => setIsExpanded(false)}
                 style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer' }}
               >
